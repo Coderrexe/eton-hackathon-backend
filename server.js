@@ -23,7 +23,7 @@ app.use("/api/data", dataRoutes);
 
 mongoose
   .connect(
-    "mongodb+srv://simbashi:5gIygM8aJvyEgNWJ@cluster0.fqcadek.mongodb.net/etonetDB"
+    "mongodb+srv://simbashi:8KQOR4i4zzr6o00z@cluster0.vlyf9nf.mongodb.net/hackathonDB"
   )
   .then(() => {
     console.log("Connected to database.");
