@@ -21,16 +21,55 @@ async function storeInitialData(req, res) {
 }
 
 async function getInitialData(req, res) {
-  // Retrieve data from database.
+  User.findOne({ username: "prototype" }, (err, userFound) => {
+    if (!err) {
+      if (userFound) {
+        res.status(200).json({
+          username: userFound.username,
+          roomNumber: userFound.roomNumber,
+          targetTemperature: userFound.targetTemperature,
+        });
+      } else {
+        res.status(404).json("No such user found.");
+      }
+    } else {
+      res.send(err);
+    }
+  });
 }
 
 async function updateCurrentTemperature(req, res) {
   const currentTemperature = req.body.currentTemperature;
-  // Store to database.
+  User.findOneAndUpdate(
+    { username: "prototype" },
+    { currentTemperature: currentTemperature }
+  ).then((user) => {
+    res
+      .status(200)
+      .json(
+        "Successfully saved new user. Current temperature: " +
+          user.currentTemperature
+      );
+  });
 }
 
 async function getCurrentTemperature(req, res) {
-  // Retrieve data from database.
+  User.findOne({ username: "prototype" }, (err, userFound) => {
+    if (!err) {
+      if (userFound) {
+        res.status(200).json({
+          username: userFound.username,
+          roomNumber: userFound.roomNumber,
+          targetTemperature: userFound.targetTemperature,
+          currentTemperature: userFound.currentTemperature,
+        });
+      } else {
+        res.status(404).json("No such user found.");
+      }
+    } else {
+      res.send(err);
+    }
+  });
 }
 
 module.exports = {
