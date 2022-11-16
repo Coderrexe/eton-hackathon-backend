@@ -38,6 +38,21 @@ async function getInitialData(req, res) {
   });
 }
 
+async function updateTargetTemperature(req, res) {
+  const targetTemperature = req.body.targetTemperature;
+  User.findOneAndUpdate(
+    { username: "prototype" },
+    { targetTemperature: targetTemperature }
+  ).then((user) => {
+    res
+      .status(200)
+      .json(
+        "Successfully updated target temperature. Target temperature: " +
+          user.targetTemperature
+      );
+  });
+}
+
 async function updateCurrentTemperature(req, res) {
   const currentTemperature = req.body.currentTemperature;
   User.findOneAndUpdate(
@@ -75,6 +90,7 @@ async function getCurrentTemperature(req, res) {
 module.exports = {
   storeInitialData,
   getInitialData,
+  updateTargetTemperature,
   updateCurrentTemperature,
   getCurrentTemperature,
 };
